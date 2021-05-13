@@ -8,7 +8,7 @@ namespace webapplication.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        [HttpGet, Authorize]
+        [HttpGet, Authorize(Roles = "Manager")]
         public IEnumerable<string> Get()
         {
             return new string[] { "John Doe", "Jane Doe" };

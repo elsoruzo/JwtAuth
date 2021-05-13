@@ -21,15 +21,21 @@ namespace webapplication.Controllers
                 return BadRequest("Invalid client request");
             }
 
-            if (user.UserName == "jacob" && user.Password == "123456)")
+            if (user.UserName == "jacob" && user.Password == "123456")
             {
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretKey1)"));
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretSecretKey)1"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+                var claims = new List<Claim> 
+                { 
+                    new Claim(ClaimTypes.Name, user.UserName), 
+                    new Claim(ClaimTypes.Role, "Operator")
+                };
 
                 var tokeOptions = new JwtSecurityToken(
                     issuer: "http://localhost:5000",
                     audience: "http://localhost:5000",
-                    claims: new List<Claim>(),
+                    claims: claims,
                     expires: DateTime.Now.AddMinutes(5),
                     signingCredentials: signinCredentials
                 );

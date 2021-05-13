@@ -36,8 +36,18 @@ namespace webapplication
 
                     ValidIssuer = "http://localhost:5000",
                     ValidAudience = "http://localhost:5000",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretKey1)"))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretSecretKey)1"))
                 };
+            });
+
+            services.AddCors(options => 
+            {
+                options.AddPolicy("EnableCORS", builder => 
+                { 
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod(); 
+                }); 
             });
 
             services.AddControllers();
@@ -52,6 +62,7 @@ namespace webapplication
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("EnableCORS");
 
             app.UseRouting();
 
